@@ -1,0 +1,12 @@
+{
+ "rule trigger (Arm A)": {
+  "diagnosis": 0.35,
+  "multiple": 0.3269444444444444,
+  "smoking": 0.0185185185185185
+ },
+ "consistency trigger, top 10% (Arm B)": {
+  "diagnosis": 0.3812962962962963,
+  "multiple": 0.3952777777777778,
+  "smoking": 0.037037037037037
+ }
+}

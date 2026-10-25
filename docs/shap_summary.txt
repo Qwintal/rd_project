@@ -1,0 +1,31 @@
+                   gamma 0  gamma 1
+pack_years          0.3380   0.3530
+age                 0.3099   0.3304
+sex_male            0.2016   0.2000
+hypertension        0.0485   0.1015
+smoker              0.0827   0.0965
+bmi                 0.0756   0.0890
+cvd                 0.0682   0.0686
+diabetes            0.0604   0.0680
+occupation_class    0.0529   0.0571
+cholesterol         0.0614   0.0531
+alcohol             0.0367   0.0462
+hba1c               0.0481   0.0419
+family_history      0.0272   0.0332
+log10_sum_assured   0.0106   0.0163
+sbp                 0.0208   0.0158
+hazardous_hobby     0.0000   0.0021
+
+                       gamma 0  gamma 1
+smoker x hypertension   0.0017   0.0031
+smoker x bmi            0.0050   0.0035
+hypertension x bmi      0.0042   0.0149
+smoker x age            0.0180   0.0211
+
+ gamma                                       group    n  mean SHAP truthful view  mean SHAP declared view  mean log-odds drop from the lie
+   0.0            smoking concealers: SHAP(smoker) 1150                    0.093                   -0.076                            0.925
+   0.0 hypertension concealers: SHAP(hypertension)  683                    0.096                   -0.036                            0.459
+   0.0         diabetes concealers: SHAP(diabetes)  194                    0.333                   -0.042                            0.693
+   1.0            smoking concealers: SHAP(smoker) 1150                    0.106                   -0.091                            1.029
+   1.0 hypertension concealers: SHAP(hypertension)  683                    0.202                   -0.069                            0.614
+   1.0         diabetes concealers: SHAP(diabetes)  194                    0.387                   -0.046                            0.783

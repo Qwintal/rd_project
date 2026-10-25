@@ -1,0 +1,53 @@
+# ---------------------------------------------------------------
+# DGP config. Every number here is either (V) verified against a
+# cited source, (A) assumed/illustrative, or (D) a design choice.
+# ---------------------------------------------------------------
+seed: 2026
+n_applicants: 1000          # (D) sanity run; full run planned at 50,000
+gamma: 0.0                  # (D) interaction strength; swept in {0,.25,.5,.75,1}
+
+age: {min: 40, max: 60}     # (D) uniform integer ages, term-life buyer range
+p_male: 0.55                # (A)
+p_smoker_male: 0.42         # (D) oversampled so the 65/15/12/8 mix is feasible
+p_smoker_female: 0.26       # (D) => ~35% smokers overall
+
+concealment_mix:            # (A) assumed, not sourced
+  truthful: 0.65
+  smoking: 0.15
+  diagnosis: 0.12
+  multiple: 0.08            # smoking + one diagnosis
+
+target_p10: 0.055           # (D) calibrated mean 10-yr claim probability (intercept re-solved per gamma)
+female_hazard_ratio: 0.60   # (A) female/male; US state life tables show ~0.45-0.60
+horizon_years: 10
+frailty_theta: 0.25         # (A) variance of hidden gamma frailty Z (mean 1) = risk NOT on the form (e.g. depression, other
+                            #     conditions). Multiplies the hazard; appears in no feature column. 0 turns it off.
+
+# Gompertz slope b is fitted from the CDC NVSR 74-06 (US males, 2023) q_x values
+# at ages 40, 49, 50, 59 -> see hazard.fit_gompertz_b()
+
+hazard_ratios:              # main effects (multiplicative on hazard)
+  smoker: 2.4               # (V/D) Jha 2013 NEJM: 2.8-3.0 vs never-smokers; Cho 2024: 2.7-2.8; former smokers 1.3 -> smoker vs pooled non-smoker ~2.4 (inference)
+  hypertension: 1.30        # (V) 1.28 (95% CI 1.14-1.44), Obesity 2023 US study; within the 1.25-1.35 range in project docs
+  bmi_ge_30: 1.26           # (V) ARIC uncorrected all-cause HR 1.26 (1.01-1.58), ref BMI 21-25
+  diabetes: 1.80            # (V) ERFC, NEJM 2011: 1.80 (1.71-1.90). Project docs had 1.57 (Swedish DB) - could not verify
+  cvd: 2.0                  # (A) no source retrieved
+  alcohol_heavy: 1.25       # (A)
+  hazardous_hobby: 1.10     # (A)
+  occupation_class_3: 1.10  # (A)
+  occupation_class_4: 1.25  # (A)
+  family_history: 1.15      # (A)
+  chol_ge_240: 1.15         # (A)
+
+interaction_beta:           # (A) log-hazard add-ons at gamma = 1; illustrative stress-test values
+  smoker_x_age_per_decade: 0.08   # centred at age 50
+  smoker_x_htn: 0.12
+  smoker_x_bmi: 0.10
+  htn_x_bmi: 0.10
+  smoker_x_htn_x_bmi: 0.18      # all-three combined extra log-HR = 0.50 -> x1.65 at gamma=1
+
+# Concealment footprint: biomarkers are insurer-measured and cannot be concealed.
+footprint:                  # (D) fixed strength, to be probed in Phase 3
+  sbp_shift_htn: 14.0       # mmHg added when true hypertension present
+  hba1c_shift_dm: 1.6       # HbA1c points added when diabetic
+  chol_shift_smoker: 6.0    # mg/dL, deliberately weak

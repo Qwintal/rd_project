@@ -1,0 +1,86 @@
+== T1 headline c* (INR per verified applicant, 10% concealers, v=1) ==
+gamma                       0.00       0.25       0.50       0.75       1.00
+strategy                                                                    
+Arm A blanket          36,889.00  36,868.00  36,855.00  36,708.00  36,792.00
+Arm A rule            157,984.00 157,904.00 157,851.00 157,256.00 157,598.00
+Arm B blanket          35,145.00  36,241.00  37,154.00  36,906.00  39,870.00
+Arm B matched to rule 222,539.00 240,550.00 250,639.00 244,888.00 277,686.00
+Arm B top 10%         194,660.00 209,502.00 219,029.00 214,357.00 243,072.00
+Arm B top 20%         116,960.00 123,650.00 128,850.00 127,008.00 141,388.00
+Arm B top 5%          295,357.00 320,081.00 328,040.00 319,019.00 361,140.00
+
+95% CI at gamma 0.5:
+              strategy  share_verified_pct  cstar_inr         lo         hi
+        Arm A blanket              100.00  36,855.00  35,734.00  38,026.00
+           Arm A rule                4.00 157,851.00 145,424.00 170,804.00
+        Arm B blanket              100.00  37,154.00  36,053.00  38,247.00
+Arm B matched to rule                4.00 250,639.00 233,292.00 268,147.00
+         Arm B top 5%                2.00 328,040.00 301,350.00 355,779.00
+        Arm B top 10%                5.00 219,029.00 204,598.00 232,958.00
+        Arm B top 20%               13.00 128,850.00 122,602.00 135,231.00
+
+== T2 marginal c*: top-1% bin and cumulative average at 5/10/20% (Arm B) ==
+gamma 0.0: marginal@1% 454,412 | @5% 207,308 | @10% 91,931 | @20% 51,442 | @50% 32,503
+gamma 0.25: marginal@1% 502,495 | @5% 215,943 | @10% 95,704 | @20% 51,248 | @50% 31,159
+gamma 0.5: marginal@1% 501,229 | @5% 228,014 | @10% 102,952 | @20% 53,064 | @50% 31,118
+gamma 0.75: marginal@1% 487,153 | @5% 227,493 | @10% 102,283 | @20% 52,038 | @50% 31,289
+gamma 1.0: marginal@1% 551,903 | @5% 258,384 | @10% 115,117 | @20% 55,954 | @50% 31,633
+
+== T2 optimal share verified at gamma 0.5 ==
+  gamma  c_inr  optimal_share_verified_pct_of_cohort  optimal_share_verified_pct_at_10pct_prevalence  net_inr_per_1000  blanket_net_inr_per_1000
+  0.50   2000                                    94                                           91.80     35,231,551.70             35,154,054.60
+  0.50   5000                                    93                                           90.50     32,512,886.30             32,154,054.60
+  0.50  10000                                    91                                           87.90     28,088,071.40             27,154,054.60
+  0.50  25000                                    54                                           46.00     17,528,590.20             12,154,054.60
+  0.50  50000                                    25                                           17.00      9,963,587.60            -12,845,945.40
+  0.50 100000                                    11                                            5.40      5,710,405.60            -62,845,945.40
+  0.50 250000                                     4                                            1.40      1,578,705.60           -212,845,945.40
+  0.50 500000                                     1                                            0.30          3,902.60           -462,845,945.40
+
+== T3 c* by sum assured, gamma 0.5 ==
+ strategy     Arm A blanket  Arm A rule  Arm B top 10%
+sum_assured                                          
+1000000           5,537.00   22,843.00      34,862.00
+2500000          14,432.00   62,054.00      88,686.00
+5000000          28,019.00  116,504.00     170,820.00
+10000000         54,841.00  248,532.00     346,781.00
+20000000        110,618.00  461,580.00     636,951.00
+
+== T4 prevalence sweep, gamma 0.5 ==
+ strategy    Arm A blanket  Arm A rule  Arm B blanket  Arm B top 10%
+prevalence                                                         
+0.02             7,371.00   52,123.00       7,431.00      68,038.00
+0.05            18,428.00  104,738.00      18,577.00     140,873.00
+0.10            36,855.00  157,851.00      37,154.00     219,029.00
+0.20            73,711.00  211,470.00      74,308.00     303,112.00
+0.35           128,994.00  247,501.00     130,039.00     362,802.00
+
+== T5 deterrence, gamma 0.5, v=1 ==
+       operating_point      type  mean_dpi_inr  recall_r  false_verif_rate_f  penalty_multiple_1_over_rv    P_star_inr
+           Arm A rule diagnosis     86,194.76      0.35                0.02                        2.86    246,270.76
+           Arm A rule  multiple    743,522.59      0.33                0.02                        3.06  2,274,155.77
+           Arm A rule   smoking    394,457.38      0.02                0.02                       54.00 21,300,698.42
+Arm B matched to rule diagnosis    113,487.00      0.33                0.02                        3.01    341,790.20
+Arm B matched to rule  multiple    762,481.04      0.35                0.02                        2.87  2,190,687.76
+Arm B matched to rule   smoking    369,481.78      0.03                0.02                       39.94 14,757,408.44
+        Arm B top 10% diagnosis    113,487.00      0.38                0.03                        2.62    297,634.69
+        Arm B top 10%  multiple    762,481.04      0.40                0.03                        2.53  1,928,975.23
+        Arm B top 10%   smoking    369,481.78      0.04                0.03                       27.00  9,976,008.10
+        Arm B top 20% diagnosis    113,487.00      0.58                0.10                        1.74    197,051.39
+        Arm B top 20%  multiple    762,481.04      0.62                0.10                        1.62  1,233,677.20
+        Arm B top 20%   smoking    369,481.78      0.13                0.10                        7.65  2,827,666.70
+
+== T6 illustrative equilibrium (Arm B top 10%, gamma 0.5) ==
+      type  mean_dpi_inr      r      f  c_inr  penalty_multiple_L_over_dpi                                equilibrium  sigma_star_verify_prob  theta_star_conceal_prob
+diagnosis  113,487.0039 0.3813 0.0263  10000                            3                                      mixed                  0.8742                   0.0066
+diagnosis  113,487.0039 0.3813 0.0263  10000                           10                                      mixed                  0.2623                   0.0066
+diagnosis  113,487.0039 0.3813 0.0263  50000                            3                                      mixed                  0.8742                   0.0514
+diagnosis  113,487.0039 0.3813 0.0263  50000                           10                                      mixed                  0.2623                   0.0514
+ multiple  762,481.0440 0.3953 0.0263  10000                            3                                      mixed                  0.8433                   0.0009
+ multiple  762,481.0440 0.3953 0.0263  10000                           10                                      mixed                  0.2530                   0.0009
+ multiple  762,481.0440 0.3953 0.0263  50000                            3                                      mixed                  0.8433                   0.0046
+ multiple  762,481.0440 0.3953 0.0263  50000                           10                                      mixed                  0.2530                   0.0046
+  smoking  369,481.7816 0.0370 0.0263  10000                            3 pure: applicant conceals; insurer verifies                     NaN                   1.0000
+  smoking  369,481.7816 0.0370 0.0263  10000                           10 pure: applicant conceals; insurer verifies                     NaN                   1.0000
+  smoking  369,481.7816 0.0370 0.0263  50000                            3 pure: applicant conceals; insurer verifies                     NaN                   1.0000
+  smoking  369,481.7816 0.0370 0.0263  50000                           10 pure: applicant conceals; insurer verifies                     NaN                   1.0000
